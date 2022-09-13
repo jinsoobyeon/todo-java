@@ -1,20 +1,22 @@
 package server.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class TodoDAO {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String id = "system";
-	String password = "oracle";
+	DataSource dataSource;
 	
 	public TodoDAO() {
 		try {
-			Class.forName(driver);
-		} catch (ClassNotFoundException e) {
+			Context context = new InitialContext();
+			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/Oracle11g");
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -26,7 +28,7 @@ public class TodoDAO {
 		PreparedStatement preparedStatement;
 		
 		try {
-			connection = DriverManager.getConnection(url, id, password);
+			connection = dataSource.getConnection();
 			String sql = "INSERT INTO todos(todo) VALUES (?)";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, todo);
