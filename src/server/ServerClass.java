@@ -20,12 +20,11 @@ public class ServerClass extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String todo = request.getParameter("todo");
-		
 		TodoDAO todoDAO = new TodoDAO();
 		int result = todoDAO.insertTodo(todo);
 		
 		if (result == 1) {
-			response.getWriter().append("Served at: ").append("INSERT success!!");
+			response.sendRedirect("/todo-java");
 		}
 	}
 
