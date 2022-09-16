@@ -53,7 +53,7 @@ public class TodoDAO {
 
 		Connection connection;
 		Statement statement;
-		ResultSet resultSet = null;
+		ResultSet resultSet;
 		
 		try {
 			connection = dataSource.getConnection();
@@ -75,5 +75,26 @@ public class TodoDAO {
 		}
 		
 		return todos;
+	}
+	
+	public boolean DeleteAll() {
+		boolean result = true;
+		
+		Connection connection;
+		Statement statement;
+		
+		try {
+			connection = dataSource.getConnection();
+			statement = connection.createStatement();
+			String sql = "delete from todos";
+			result = statement.execute(sql);
+			
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }

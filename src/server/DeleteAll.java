@@ -1,7 +1,6 @@
 package server;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,20 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import server.dao.TodoDAO;
 
-@WebServlet("/ServerClass")
-public class ServerClass extends HttpServlet {
+@WebServlet("/DeleteAll")
+public class DeleteAll extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ServerClass() {
-    	super();
+    public DeleteAll() {
+        super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String todo = request.getParameter("todo");
 		TodoDAO todoDAO = new TodoDAO();
-		int result = todoDAO.insertTodo(todo);
+		boolean result = todoDAO.DeleteAll();
 		
-		if (result == 1) {
+		if (result == false) {
 			response.sendRedirect("/todo-java");
 		}
 	}
@@ -31,5 +29,4 @@ public class ServerClass extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

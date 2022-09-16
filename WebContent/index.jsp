@@ -12,7 +12,7 @@
 <body>
 	<h1>TODO it!</h1>
 	<hr />
-	<form action="ServerClass">
+	<form action="InsertTodo">
 		<input name="todo" placeholder="Type what you have to do" maxlength="20" required />
 		<button>+</button>
 	</form>
@@ -28,5 +28,8 @@
 			}
 		}
 	%>
+	<form action="DeleteAll">
+		<button>Clear All</button>
+	</form>
 </body>
 </html>
